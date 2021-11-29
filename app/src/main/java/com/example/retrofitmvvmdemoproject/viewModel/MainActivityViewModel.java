@@ -8,8 +8,8 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import model.MovieRepository;
-import model.Result;
+import com.example.retrofitmvvmdemoproject.model.MovieRepository;
+import com.example.retrofitmvvmdemoproject.model.Result;
 
 public class MainActivityViewModel extends AndroidViewModel {
 

@@ -9,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.retrofitmvvmdemoproject.R;
-import model.Result;
+import com.example.retrofitmvvmdemoproject.databinding.ResultlistitemBinding;
+import com.example.retrofitmvvmdemoproject.model.Result;
 import com.example.retrofitmvvmdemoproject.movie_info;
 
 import java.util.ArrayList;
@@ -32,16 +34,20 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.ResultView
     @Override
     public ResultViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.resultlistitem,parent,false);
+        ResultlistitemBinding resultlistitemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext())
+                ,R.layout.resultlistitem,parent,false);
 
-        return new ResultViewHolder(view);
+        return new ResultViewHolder(resultlistitemBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ResultViewHolder holder, int position) {
-        holder.titleTV.setText(result.get(position).getOriginalTitle());
-        holder.popularityTV.setText(result.get(position).getPopularity().toString());
-        String imagePath = "https://image.tmdb.org/t/p/w500/" + result.get(position).getPosterPath();
-        Glide.with(context).load(imagePath).placeholder(R.drawable.progress_circle).into(holder.movieIV);
+
+        Result result2 = result.get(position);
+
+
+        holder.resultlistitemBinding.setResult(result2);
+
     }
 
     @Override
@@ -51,19 +57,14 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.ResultView
 
     public class ResultViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView titleTV;
-        public TextView popularityTV;
-        public ImageView movieIV;
+        private ResultlistitemBinding resultlistitemBinding;
 
-        public ResultViewHolder(@NonNull View itemView) {
-            super(itemView);
 
-            titleTV = itemView.findViewById(R.id.TitleTV);
+        public ResultViewHolder(@NonNull ResultlistitemBinding resultlistitemBinding) {
+            super(resultlistitemBinding.getRoot());
+            this.resultlistitemBinding = resultlistitemBinding;
 
-            popularityTV = itemView.findViewById(R.id.popularityTV);
-
-            movieIV = itemView.findViewById(R.id.MovieImageView);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            resultlistitemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();

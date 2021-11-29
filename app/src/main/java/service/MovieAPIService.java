@@ -1,6 +1,6 @@
 package service;
 
-import model.MovieApiResponse;
+import com.example.retrofitmvvmdemoproject.model.MovieApiResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

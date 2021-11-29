@@ -1,4 +1,4 @@
-package model;
+package com.example.retrofitmvvmdemoproject.model;
 
 import android.os.Parcelable;
 

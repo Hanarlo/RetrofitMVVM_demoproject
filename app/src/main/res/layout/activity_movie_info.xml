@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="result"
+            type="com.example.retrofitmvvmdemoproject.model.Result" />
+
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".movie_info">
@@ -11,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:scaleType="centerInside"
+        bind:posterPath="@{result.posterPath}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,16 +41,19 @@
         app:layout_constraintTop_toBottomOf="@+id/PosterIV">
         <TextView
         android:id="@+id/TitleInfo"
+            android:text="@{result.originalTitle}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24sp"/>
         <TextView
             android:id="@+id/voteCountTV"
+            android:text="@{result.voteCount.toString()}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"/>
         <TextView
             android:id="@+id/OverwiewTV"
+            android:text="@{result.overview}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"/>
@@ -47,3 +62,4 @@
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -6,6 +6,9 @@ android {
 
     compileSdk 31
 
+    buildFeatures {
+        dataBinding true}
+
     defaultConfig {
         applicationId "com.example.retrofitmvvmdemoproject"
         minSdk 25
