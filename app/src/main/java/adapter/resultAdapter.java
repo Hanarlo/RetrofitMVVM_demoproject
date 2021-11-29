@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.paging.PagedList;
+import androidx.paging.PagedListAdapter;
+import androidx.paging.PagingDataAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,13 +23,14 @@ import com.example.retrofitmvvmdemoproject.movie_info;
 
 import java.util.ArrayList;
 
-public class resultAdapter extends RecyclerView.Adapter<resultAdapter.ResultViewHolder> {
+public class resultAdapter extends PagedListAdapter<Result, resultAdapter.ResultViewHolder> {
     private Context context;
-    private ArrayList<Result> result;
 
-    public resultAdapter(Context context, ArrayList<Result> result) {
+
+    public resultAdapter(Context context) {
+        super(Result.CALLBACK);
         this.context = context;
-        this.result = result;
+
     }
 
 
@@ -43,17 +47,12 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.ResultView
     @Override
     public void onBindViewHolder(@NonNull ResultViewHolder holder, int position) {
 
-        Result result2 = result.get(position);
-
-
+        Result result2 = getItem(position);
         holder.resultlistitemBinding.setResult(result2);
 
     }
 
-    @Override
-    public int getItemCount() {
-        return result.size();
-    }
+
 
     public class ResultViewHolder extends RecyclerView.ViewHolder{
 
@@ -67,9 +66,9 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.ResultView
             resultlistitemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int position = getAdapterPosition();
+                    int position = getAbsoluteAdapterPosition();
                     if (position != RecyclerView.NO_POSITION){
-                        Result result2 = result.get(position);
+                        Result result2 = getItem(position);
                         Intent intent = new Intent(context, movie_info.class).putExtra("movie_data", result2);
                         context.startActivity(intent);
                     }

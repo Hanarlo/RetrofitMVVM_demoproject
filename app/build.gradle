@@ -34,8 +34,11 @@ android {
 dependencies {
 
     def lifecycle_version = "2.4.0"
+    def paging_version = "3.1.0"
 
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.paging:paging-runtime:$paging_version"
+
+
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
 

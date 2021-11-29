@@ -13,7 +13,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import service.MovieAPIService;
-import service.retrofitInstance;
+import service.RetrofitInstance;
 
 public class MovieRepository {
 
@@ -28,7 +28,7 @@ public class MovieRepository {
 
     public MutableLiveData<List<Result>> getMutableLiveData() {
 
-        MovieAPIService movieAPIService = retrofitInstance.getService();
+        MovieAPIService movieAPIService = RetrofitInstance.getService();
 
         Call<MovieApiResponse> call = movieAPIService.getMovies(application.getApplicationContext().getString(R.string.api_key));
 

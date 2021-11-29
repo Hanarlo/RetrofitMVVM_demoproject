@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.paging.PagedList;
+import androidx.paging.PagedListConfigKt;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +26,7 @@ import com.example.retrofitmvvmdemoproject.model.Result;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<Result> results;
+    private PagedList<Result> results;
     private adapter.resultAdapter resultAdapter;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -50,20 +52,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void getPopularMovies(){
 
-        mainActivityViewModel.getAllMovieData().observe(this, new Observer<List<Result>>() {
+        mainActivityViewModel.getPagedListLiveData().observe(this, new Observer<PagedList<Result>>() {
             @Override
-            public void onChanged(List<Result> results3) {
-                results = (ArrayList<Result>) results3;
+            public void onChanged(PagedList<Result> resultList) {
+                results = resultList;
                 fillRecyclerView();
             }
         });
+
 
     }
 
     private void fillRecyclerView() {
         recyclerView = activityMainBinding.recyclerView;
-        resultAdapter = new resultAdapter(this, results);
-
+        resultAdapter = new resultAdapter(this);
+        resultAdapter.submitList(results );
         if (getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT){
             recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         } else {
